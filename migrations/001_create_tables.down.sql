@@ -1,0 +1,2 @@
+DROP TABLE gifts;
+DROP TABLE users;
