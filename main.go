@@ -7,7 +7,7 @@ import (
 	"log/slog"
 	"net/http"
 
-	"baseToDo/endpoints"
+	"baseToDo/handlers"
 )
 
 func main() {
@@ -19,10 +19,11 @@ func main() {
 	e.Use(middleware.Recover())
 
 	// Routes
-	e.GET("/present/:username", endpoints.GetAllPresent)
+	e.POST("/gifts", handlers.CreateGift)
+	e.PUT("/gifts/:id/reserve", handlers.ReserveGift)
 
 	// Start server
-	if err := e.Start(":8080"); err != nil && !errors.Is(err, http.ErrServerClosed) {
+	if err := e.Start(":1323"); err != nil && !errors.Is(err, http.ErrServerClosed) {
 		slog.Error("failed to start server", "error", err)
 	}
 }
