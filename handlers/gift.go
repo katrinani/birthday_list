@@ -10,7 +10,16 @@ import (
 	"strconv"
 )
 
-// CreateGift создает новый подарок.
+// CreateGift godoc
+// @Summary Создать новый подарок
+// @Description Добавляет новый подарок в список желаний
+// @Tags gifts
+// @Accept  json
+// @Produce json
+// @Param   gift body models.Gift true "Данные подарка"
+// @Success 201 {object} models.Gift
+// @Failure 400 {object} map[string]string
+// @Router /gifts [post]
 func CreateGift(c echo.Context) error {
 	gift := new(models.Gift)
 	if err := c.Bind(gift); err != nil {
@@ -38,7 +47,17 @@ func CreateGift(c echo.Context) error {
 	return c.JSON(http.StatusCreated, gift)
 }
 
-// ReserveGift помечает конкретный подарок занятым определенным пользователем.
+// ReserveGift godoc
+// @Summary Зарезервировать подарок
+// @Description Позволяет пользователю зарезервировать подарок
+// @Tags gifts
+// @Accept  json
+// @Produce json
+// @Param   id path int true "ID подарка"
+// @Param   user_id formData int true "ID пользователя, который резервирует подарок"
+// @Success 200 {object} map[string]string
+// @Failure 400 {object} map[string]string
+// @Router /gifts/{id}/reserve [put]
 func ReserveGift(c echo.Context) error {
 	giftID, _ := strconv.Atoi(c.Param("id"))
 	userID, _ := strconv.Atoi(c.FormValue("user_id"))

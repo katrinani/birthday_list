@@ -4,9 +4,11 @@ import (
 	"errors"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	echoSwagger "github.com/swaggo/echo-swagger"
 	"log/slog"
 	"net/http"
 
+	_ "baseToDo/docs"
 	"baseToDo/handlers"
 )
 
@@ -19,6 +21,7 @@ func main() {
 	e.Use(middleware.Recover())
 
 	// Routes
+	e.GET("/swagger/*", echoSwagger.WrapHandler) // swagger
 	e.POST("/gifts", handlers.CreateGift)
 	e.PUT("/gifts/:id/reserve", handlers.ReserveGift)
 
